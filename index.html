@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nimbus — Solutions cloud pour entreprises</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1a1a2e;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .logo { font-size: 1.5rem; font-weight: 800; color: #4f46e5; }
+  .logo span { color: #ec4899; }
+  ul { list-style: none; display: flex; gap: 2rem; }
+  ul a { text-decoration: none; color: #555; font-weight: 500; transition: color 0.2s; }
+  ul a:hover { color: #4f46e5; }
+  .btn-cta {
+    background: linear-gradient(135deg, #4f46e5, #ec4899);
+    color: white; padding: 0.6rem 1.4rem; border-radius: 8px;
+    text-decoration: none; font-weight: 600;
+    transition: transform 0.2s;
+  }
+  .btn-cta:hover { transform: translateY(-2px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f4ff 0%, #fef0f9 100%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 6rem 5% 4rem;
+    text-align: center;
+  }
+  .hero-content { max-width: 800px; }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #4f46e5, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p { font-size: 1.25rem; color: #555; margin-bottom: 2rem; }
+  .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary, .btn-secondary {
+    padding: 0.9rem 2rem; border-radius: 10px; font-weight: 600;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #4f46e5, #ec4899);
+    color: white;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(79,70,229,0.3); }
+  .btn-secondary {
+    background: white; color: #4f46e5; border: 2px solid #4f46e5;
+  }
+  .btn-secondary:hover { background: #4f46e5; color: white; }
+
+  /* FEATURES */
+  .features { padding: 5rem 5%; background: white; }
+  .section-title { text-align: center; margin-bottom: 3rem; }
+  .section-title h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+  .section-title p { color: #666; font-size: 1.1rem; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem; max-width: 1200px; margin: 0 auto;
+  }
+  .feature-card {
+    padding: 2rem; border-radius: 16px;
+    background: linear-gradient(135deg, #f8f9ff, #fff5f9);
+    border: 1px solid #eee;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  }
+  .feature-icon {
+    width: 60px; height: 60px; border-radius: 12px;
+    background: linear-gradient(135deg, #4f46e5, #ec4899);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; margin-bottom: 1rem;
+  }
+  .feature-card h3 { margin-bottom: 0.5rem; font-size: 1.3rem; }
+  .feature-card p { color: #666; }
+
+  /* PRICING */
+  .pricing { padding: 5rem 5%; background: #fafafa; }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem; max-width: 1100px; margin: 0 auto;
+  }
+  .price-card {
+    background: white; padding: 2.5rem 2rem; border-radius: 16px;
+    text-align: center; border: 2px solid #eee;
+    transition: all 0.3s;
+  }
+  .price-card.featured {
+    border-color: #4f46e5;
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(79,70,229,0.15);
+  }
+  .price-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .price { font-size: 3rem; font-weight: 800; color: #4f46e5; margin: 1rem 0; }
+  .price span { font-size: 1rem; color: #999; }
+  .price-card ul { display: block; margin: 1.5rem 0; text-align: left; }
+  .price-card ul li {
+    padding: 0.5rem 0; color: #555;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .price-card ul li::before { content: "✓ "; color: #10b981; font-weight: bold; }
+
+  /* FOOTER */
+  footer {
+    background: #1a1a2e; color: #aaa;
+    padding: 3rem 5% 1.5rem; text-align: center;
+  }
+  footer .logo { color: white; margin-bottom: 1rem; }
+  footer p { margin-top: 1rem; font-size: 0.9rem; }
+
+  @media (max-width: 700px) {
+    nav ul { display: none; }
+    .price-card.featured { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Nimbus<span>.</span></div>
+  <ul>
+    <li><a href="#features">Fonctionnalités</a></li>
+    <li><a href="#pricing">Tarifs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#" class="btn-cta">Démarrer</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>L'infrastructure cloud nouvelle génération</h1>
+    <p>Déployez, scalez et sécurisez vos applications en quelques clics. Pensé pour les équipes modernes.</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn-primary">Essai gratuit 14 jours</a>
+      <a href="#" class="btn-secondary">Voir la démo</a>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="section-title">
+    <h2>Tout ce dont vous avez besoin</h2>
+    <p>Une plateforme complète pour développer plus vite</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Performance extrême</h3>
+      <p>Latence sub-100ms grâce à notre réseau edge déployé dans 35 régions.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Sécurité native</h3>
+      <p>Chiffrement de bout en bout, conformité ISO 27001 et RGPD intégrée.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Analytics temps réel</h3>
+      <p>Dashboards personnalisables et alertes intelligentes pour piloter votre stack.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚀</div>
+      <h3>Déploiement instantané</h3>
+      <p>De zéro à la production en moins de 60 secondes. Rollbacks en un clic.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤝</div>
+      <h3>Collaboration d'équipe</h3>
+      <p>Permissions granulaires, audit trails et workflows d'approbation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌍</div>
+      <h3>Scale mondial</h3>
+      <p>Auto-scaling intelligent qui s'adapte à vos pics de trafic, partout dans le monde.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="section-title">
+    <h2>Des tarifs simples et transparents</h2>
+    <p>Choisissez le plan adapté à votre équipe</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Starter</h3>
+      <div class="price">19€<span>/mois</span></div>
+      <ul>
+        <li>1 projet</li>
+        <li>10 GB de stockage</li>
+        <li>Support email</li>
+        <li>Analytics de base</li>
+      </ul>
+      <a href="#" class="btn-secondary">Commencer</a>
+    </div>
+    <div class="price-card featured">
+      <h3>Pro</h3>
+      <div class="price">79€<span>/mois</span></div>
+      <ul>
+        <li>Projets illimités</li>
+        <li>500 GB de stockage</li>
+        <li>Support prioritaire 24/7</li>
+        <li>Analytics avancés</li>
+        <li>Collaboration équipe</li>
+      </ul>
+      <a href="#" class="btn-primary">Choisir Pro</a>
+    </div>
+    <div class="price-card">
+      <h3>Enterprise</h3>
+      <div class="price">Sur devis</div>
+      <ul>
+        <li>Infrastructure dédiée</li>
+        <li>Stockage illimité</li>
+        <li>SLA 99.99%</li>
+        <li>Account manager dédié</li>
+        <li>Conformité personnalisée</li>
+      </ul>
+      <a href="#" class="btn-secondary">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="logo">Nimbus<span style="color:#ec4899">.</span></div>
+  <p>contact@nimbus.example · +33 1 23 45 67 89</p>
+  <p>© 2026 Nimbus. Tous droits réservés.</p>
+</footer>
+
+</body>
+</html>
